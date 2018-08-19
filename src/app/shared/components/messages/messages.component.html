@@ -1,0 +1,20 @@
+<div class="alert alert-info" *ngIf="messageService.messages['info'].length">
+    <ul>
+        <li *ngFor="let message of messageService.messages['info']">{{message}}</li>
+    </ul>
+</div>
+<div class="alert alert-success" *ngIf="messageService.messages['success'].length">
+    <ul>
+        <li *ngFor="let message of messageService.messages['success']">{{message}}</li>
+    </ul>
+</div>
+<div class="alert alert-warning" *ngIf="messageService.messages['warning'].length">
+    <ul>
+        <li *ngFor="let message of messageService.messages['warning']">{{message}}</li>
+    </ul>
+</div>
+<div class="alert alert-danger" *ngIf="messageService.messages['error'].length">
+    <ul>
+        <li *ngFor="let message of messageService.messages['error']">{{message}}</li>
+    </ul>
+</div>

@@ -1,0 +1,22 @@
+<div *ngIf="storageService.isAuthenticated; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+  <div class="wrapper">
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+    <div class="content-wrapper">
+      <section class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</ng-template>
+<ng-template #elseBlock>
+  <router-outlet></router-outlet>
+</ng-template>
