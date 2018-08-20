@@ -1,8 +1,17 @@
 <aside class="main-sidebar">
   <!-- sidebar: style can be found in sidebar.less -->
-  <section class="sidebar">
+  <section class="sidebar" [ngSwitch]="role">
       <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
+      <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'administrator'">
+        <li>
+          <a [routerLink]="['/administrator/administrator']">
+            <i class="fa fa-circle-o"></i> <span>Administradores</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'instructor'">
+      </ul>
+      <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'user'">
       </ul>
   </section>
   <!-- /.sidebar -->

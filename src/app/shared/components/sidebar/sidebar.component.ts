@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class SidebarComponent implements OnInit {
+  role: string;
 
-  constructor() { }
+  constructor(
+    private storageService: StorageService
+  ) { }
 
   ngOnInit() {
+    this.role = this.storageService.getAppUser().role;
   }
-
 }
