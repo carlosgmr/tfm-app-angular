@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { AdministratorRoutingModule } from './administrator-routing.module';
+import { SharedModule } from '../../shared/shared.module';
 
 import { AdministratorHomeComponent } from './components/administrator-home/administrator-home.component';
 import { AdmistratorListingComponent } from './components/admistrator-listing/admistrator-listing.component';
@@ -13,7 +15,9 @@ import { AdmistratorDeleteComponent } from './components/admistrator-delete/admi
 @NgModule({
   imports: [
     CommonModule,
-    AdministratorRoutingModule
+    FormsModule,
+    AdministratorRoutingModule,
+    SharedModule
   ],
   declarations: [
     AdministratorHomeComponent,

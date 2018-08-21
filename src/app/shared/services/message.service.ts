@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MessageService {
+  private duration = 5000;
   messages: object = {
     'info': [],
     'success': [],
@@ -14,6 +15,7 @@ export class MessageService {
   add(type: string, message: string) {
     if (this.messages.hasOwnProperty(type)) {
       this.messages[type].push(message);
+      setTimeout(() => this.clear(type), this.duration);
     }
   }
 
@@ -25,12 +27,20 @@ export class MessageService {
         }
       }
     }
+
+    setTimeout(() => this.clear('error'), this.duration);
   }
 
-  clear() {
-    this.messages['info'] = [];
-    this.messages['success'] = [];
-    this.messages['warning'] = [];
-    this.messages['error'] = [];
+  clear(type: string) {
+    if (type === 'all') {
+      this.messages['info'] = [];
+      this.messages['success'] = [];
+      this.messages['warning'] = [];
+      this.messages['error'] = [];
+    } else {
+      if (this.messages.hasOwnProperty(type)) {
+        this.messages[type] = [];
+      }
+    }
   }
 }

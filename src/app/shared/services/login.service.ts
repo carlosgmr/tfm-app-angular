@@ -27,7 +27,6 @@ export class LoginService {
   ) { }
 
   login (data: LoginRequest): Observable<LoginResponse> {
-    this.messageService.clear();
     return this.http.post<LoginResponse>(this.url, data, this.httpOptions)
       .pipe(
         catchError(this.handleError())

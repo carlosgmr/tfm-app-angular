@@ -1,3 +1,61 @@
-<p>
-  admistrator-create works!
-</p>
+<div class="box-header with-border">
+  <h1 class="box-title">Crear administrador</h1>
+  <div class="box-tools pull-right">
+    <a class="btn btn-sm btn-primary" title="Volver al listado" [routerLink]="['/administrator/administrator']">
+      <i class="fa fa-arrow-left"></i> Volver al listado
+    </a>
+  </div>
+</div>
+<form (ngSubmit)="onSubmit()" #formCreate="ngForm">
+  <div class="box-body">
+    <app-messages></app-messages>
+    <div [ngClass]="{'form-group': true, 'has-error': email?.invalid && (email?.dirty || email?.touched)}">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" class="form-control" [(ngModel)]="data.email" #email="ngModel" required ngModel [email]="true">
+      <div class="help-block" *ngIf="email.invalid && (email.dirty || email.touched)">
+        <div *ngIf="email.errors.required">El campo es requerido</div>
+        <div *ngIf="email.errors.email">Debes indicar un email válido</div>
+      </div>
+    </div>
+    <div [ngClass]="{'form-group': true, 'has-error': password?.invalid && (password?.dirty || password?.touched)}">
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" name="password" class="form-control" [(ngModel)]="data.password" #password="ngModel" required>
+      <div class="help-block" *ngIf="password.invalid && (password.dirty || password.touched)">
+        <div *ngIf="password.errors.required">El campo es requerido</div>
+      </div>
+    </div>
+    <div [ngClass]="{'form-group': true, 'has-error': name?.invalid && (name?.dirty || name?.touched)}">
+      <label for="name">Nombre</label>
+      <input type="text" id="name" name="name" class="form-control" [(ngModel)]="data.name" #name="ngModel" required>
+      <div class="help-block" *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div *ngIf="name.errors.required">El campo es requerido</div>
+      </div>
+    </div>
+    <div [ngClass]="{'form-group': true, 'has-error': surname_1?.invalid && (surname_1?.dirty || surname_1?.touched)}">
+      <label for="surname_1">1º apellido</label>
+      <input type="text" id="surname_1" name="surname_1" class="form-control" [(ngModel)]="data.surname_1" #surname_1="ngModel" required>
+      <div class="help-block" *ngIf="surname_1.invalid && (surname_1.dirty || surname_1.touched)">
+        <div *ngIf="surname_1.errors.required">El campo es requerido</div>
+      </div>
+    </div>
+    <div [ngClass]="{'form-group': true, 'has-error': surname_2?.invalid && (surname_2?.dirty || surname_2?.touched)}">
+      <label for="surname_2">2º apellido</label>
+      <input type="text" id="surname_2" name="surname_2" class="form-control" [(ngModel)]="data.surname_2" #surname_2="ngModel">
+    </div>
+    <div [ngClass]="{'form-group': true, 'has-error': active?.invalid && (active?.dirty || active?.touched)}">
+      <label>Activo</label>
+      <div class="radio">
+        <label><input type="radio" name="active" value="1" [(ngModel)]="data.active" #active="ngModel" required> Sí</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" name="active" value="0" [(ngModel)]="data.active" #active="ngModel" required> No</label>
+      </div>
+      <div class="help-block" *ngIf="active.invalid && (active.dirty || active.touched)">
+        <div *ngIf="active.errors.required">El campo es requerido</div>
+      </div>
+    </div>
+  </div>
+  <div class="box-footer">
+    <button type="submit" class="btn btn-primary" [disabled]="!formCreate.form.valid">Crear</button>
+  </div>
+</form>

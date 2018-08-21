@@ -28,9 +28,36 @@ export class AdministratorService {
     };
   }
 
-  listing (): Observable<any> {
-    this.messageService.clear();
+  listing(): Observable<any> {
     return this.http.get<any>(this.url, this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  read(id: any): Observable<any> {
+    return this.http.get<any>(this.url + '/' + id, this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  create(data: any): Observable<any> {
+    return this.http.post<any>(this.url, data, this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  update(id: any, data: any): Observable<any> {
+    return this.http.patch<any>(this.url + '/' + id, data, this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  delete(id: any): Observable<any> {
+    return this.http.delete<any>(this.url + '/' + id, this.httpOptions)
       .pipe(
         catchError(this.handleError())
       );

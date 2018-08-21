@@ -7,7 +7,7 @@ import { AdministratorService } from '../../../../shared/services/administrator.
   templateUrl: './admistrator-listing.component.html'
 })
 export class AdmistratorListingComponent implements OnInit {
-  items: Array<any>;
+  items: Array<object>;
   load: boolean;
 
   constructor(

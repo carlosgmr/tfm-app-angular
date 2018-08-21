@@ -12,8 +12,8 @@ import { AdmistratorDeleteComponent } from './components/admistrator-delete/admi
 const routes: Routes = [
   { path: 'administrator', component: AdministratorHomeComponent, canActivate: [AdministratorAuthGuardService] },
   { path: 'administrator/administrator', component: AdmistratorListingComponent, canActivate: [AdministratorAuthGuardService] },
-  { path: 'administrator/administrator/:id', component: AdmistratorReadComponent, canActivate: [AdministratorAuthGuardService] },
   { path: 'administrator/administrator/create', component: AdmistratorCreateComponent, canActivate: [AdministratorAuthGuardService] },
+  { path: 'administrator/administrator/:id', component: AdmistratorReadComponent, canActivate: [AdministratorAuthGuardService] },
   { path: 'administrator/administrator/:id/update', component: AdmistratorUpdateComponent, canActivate: [AdministratorAuthGuardService] },
   { path: 'administrator/administrator/:id/delete', component: AdmistratorDeleteComponent, canActivate: [AdministratorAuthGuardService] },
 ];

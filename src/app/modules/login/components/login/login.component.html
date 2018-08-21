@@ -6,7 +6,7 @@
     <div class="login-box-body">
         <app-messages></app-messages>
         <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-            <div class="form-group" [ngClass]="{'form-group': true, 'has-error': email?.invalid && (email?.dirty || email?.touched)}">
+            <div [ngClass]="{'form-group': true, 'has-error': email?.invalid && (email?.dirty || email?.touched)}">
                 <label for="email"><span class="glyphicon glyphicon-envelope"></span> Email</label>
                 <input type="email" class="form-control" name="email" id="email" [(ngModel)]="model.email" #email="ngModel" required ngModel [email]="true">
                 <div class="help-block" *ngIf="email.invalid && (email.dirty || email.touched)">
@@ -14,14 +14,14 @@
                     <div *ngIf="email.errors.email">Debes indicar un email válido</div>
                 </div>
             </div>
-            <div class="form-group" [ngClass]="{'form-group': true, 'has-error': password?.invalid && (password?.dirty || password?.touched)}">
+            <div [ngClass]="{'form-group': true, 'has-error': password?.invalid && (password?.dirty || password?.touched)}">
                 <label for="password"><span class="glyphicon glyphicon-lock"></span> Contraseña</label>
                 <input type="password" class="form-control" name="password" id="password" [(ngModel)]="model.password" #password="ngModel" required>
                 <div class="help-block" *ngIf="password.invalid && (password.dirty || password.touched)">
                     <div *ngIf="password.errors.required">La contraseña es requerida</div>
                 </div>
             </div>
-            <div class="form-group" [ngClass]="{'form-group': true, 'has-error': role?.invalid && (role?.dirty || role?.touched)}">
+            <div [ngClass]="{'form-group': true, 'has-error': role?.invalid && (role?.dirty || role?.touched)}">
                 <label for="role"><span class="glyphicon glyphicon-user"></span> Tipo de cuenta</label>
                 <select class="form-control" name="role" id="role" [(ngModel)]="model.role" #role="ngModel" required>
                     <option value=""></option>
