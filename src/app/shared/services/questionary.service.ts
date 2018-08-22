@@ -11,8 +11,8 @@ import { MessageService } from './message.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AdministratorService {
-  url = environment.api.url + 'administrator';
+export class QuestionaryService {
+  url = environment.api.url + 'questionary';
   httpOptions: object;
 
   constructor(
@@ -58,6 +58,27 @@ export class AdministratorService {
 
   delete(id: any): Observable<any> {
     return this.http.delete<any>(this.url + '/' + id, this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  readComplete(id: any): Observable<any> {
+    return this.http.get<any>(this.url + '/' + id + '/complete', this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  readBasic(id: any): Observable<any> {
+    return this.http.get<any>(this.url + '/' + id + '/basic', this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  addQuestions(id: any, data: any): Observable<any> {
+    return this.http.post<any>(this.url + '/' + id + '/add-questions', data, this.httpOptions)
       .pipe(
         catchError(this.handleError())
       );

@@ -5,29 +5,31 @@ import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 
-import { LoginRequest } from '../models/login-request';
-import { LoginResponse } from '../models/login-response';
-
+import { StorageService } from './storage.service';
 import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
-  url = environment.api.url + 'auth/login';
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json'
-    })
-  };
+export class RegistryService {
+  url = environment.api.url + 'registry';
+  httpOptions: object;
 
   constructor(
     private http: HttpClient,
+    private storageService: StorageService,
     private messageService: MessageService
-  ) { }
+  ) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.storageService.getToken()
+      }),
+    };
+  }
 
-  login (data: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(this.url, data, this.httpOptions)
+  saveAttempt(idUser: any, idQuestionary: any, data: any): Observable<any> {
+    return this.http.post<any>(this.url + '/user/' + idUser + '/questionary/' + idQuestionary, data, this.httpOptions)
       .pipe(
         catchError(this.handleError())
       );

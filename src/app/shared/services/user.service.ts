@@ -11,8 +11,8 @@ import { MessageService } from './message.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AdministratorService {
-  url = environment.api.url + 'administrator';
+export class UserService {
+  url = environment.api.url + 'user';
   httpOptions: object;
 
   constructor(
@@ -58,6 +58,48 @@ export class AdministratorService {
 
   delete(id: any): Observable<any> {
     return this.http.delete<any>(this.url + '/' + id, this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  listingGroup(id: any): Observable<any> {
+    return this.http.get<any>(this.url + '/' + id + '/group', this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  currentGroup(id: any, data: any): Observable<any> {
+    return this.http.post<any>(this.url + '/' + id + '/group', data, this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  questionnairesMade(id: any): Observable<any> {
+    return this.http.get<any>(this.url + '/' + id + '/group/questionary', this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  questionaryDetails(idUser: any, idQuestionary: any): Observable<any> {
+    return this.http.get<any>(this.url + '/' + idUser + '/questionary/' + idQuestionary, this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  questionnairesByGroupAndState(idUser: any, idGroup: any): Observable<any> {
+    return this.http.get<any>(this.url + '/' + idUser + '/group/' + idGroup + '/questionary/by-state', this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  questionnairesByState(idUser: any): Observable<any> {
+    return this.http.get<any>(this.url + '/' + idUser + '/questionary/by-state', this.httpOptions)
       .pipe(
         catchError(this.handleError())
       );

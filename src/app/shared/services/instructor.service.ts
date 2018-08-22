@@ -11,8 +11,8 @@ import { MessageService } from './message.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AdministratorService {
-  url = environment.api.url + 'administrator';
+export class InstructorService {
+  url = environment.api.url + 'instructor';
   httpOptions: object;
 
   constructor(
@@ -58,6 +58,27 @@ export class AdministratorService {
 
   delete(id: any): Observable<any> {
     return this.http.delete<any>(this.url + '/' + id, this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  listingGroup(id: any): Observable<any> {
+    return this.http.get<any>(this.url + '/' + id + '/group', this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  currentGroup(id: any, data: any): Observable<any> {
+    return this.http.post<any>(this.url + '/' + id + '/group', data, this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  listingQuestionary(id: any): Observable<any> {
+    return this.http.get<any>(this.url + '/' + id + '/questionary', this.httpOptions)
       .pipe(
         catchError(this.handleError())
       );

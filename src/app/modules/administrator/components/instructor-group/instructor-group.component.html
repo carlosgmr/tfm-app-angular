@@ -1,0 +1,29 @@
+<div class="box-header with-border">
+  <h1 class="box-title">Inscribir en grupos</h1>
+  <div class="box-tools pull-right">
+    <a class="btn btn-sm btn-primary" title="Volver al listado" [routerLink]="['/administrator/instructor']">
+      <i class="fa fa-arrow-left"></i> Volver al listado
+    </a>&nbsp;
+    <a class="btn btn-sm btn-primary" title="Volver a detalles" [routerLink]="['/administrator/instructor', id]">
+      <i class="fa fa-eye"></i> Volver a detalles
+    </a>
+  </div>
+</div>
+<form (ngSubmit)="onSubmit()" #formGroup="ngForm">
+  <div class="box-body">
+    <app-messages></app-messages>
+    <div *ngIf="!loadAllGroups || !loadCurrentGroups">Cargando datos ...</div>
+    <div *ngIf="loadAllGroups && loadCurrentGroups" class="form-group">
+      <label>Grupos</label>
+      <div class="checkbox" *ngFor="let allGroup of allGroups">
+        <label>
+          <input type="checkbox" name="group[]" value="{{ allGroup['id'] }}" (change)="onChange($event.target)" [checked]="currentGroups.indexOf(allGroup['id']) !== -1">&nbsp;
+          {{ allGroup['name'] }}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="box-footer">
+    <button type="submit" class="btn btn-primary" [disabled]="!loadAllGroups || !loadCurrentGroups || !formGroup.form.valid">Actualizar</button>
+  </div>
+</form>

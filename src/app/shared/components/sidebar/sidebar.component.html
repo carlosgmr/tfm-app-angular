@@ -8,6 +8,21 @@
             <i class="fa fa-circle-o"></i> <span>Administradores</span>
           </a>
         </li>
+        <li>
+          <a [routerLink]="['/administrator/instructor']">
+            <i class="fa fa-circle-o"></i> <span>Instructores</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/administrator/user']">
+            <i class="fa fa-circle-o"></i> <span>Usuarios</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/administrator/group']">
+            <i class="fa fa-circle-o"></i> <span>Grupos</span>
+          </a>
+        </li>
       </ul>
       <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'instructor'">
       </ul>

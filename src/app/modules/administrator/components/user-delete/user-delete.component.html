@@ -1,0 +1,36 @@
+<div class="box-header with-border">
+  <h1 class="box-title">Eliminar usuario</h1>
+  <div class="box-tools pull-right">
+    <a class="btn btn-sm btn-primary" title="Volver al listado" [routerLink]="['/administrator/user']">
+      <i class="fa fa-arrow-left"></i> Volver al listado
+    </a>&nbsp;
+    <a class="btn btn-sm btn-primary" title="Volver a detalles" [routerLink]="['/administrator/user', id]">
+      <i class="fa fa-eye"></i> Volver a detalles
+    </a>
+  </div>
+</div>
+<div class="box-body">
+<app-messages></app-messages>
+<div *ngIf="!load">Cargando datos ...</div>
+<dl class="dl-horizontal" *ngIf="load">
+  <dt>ID</dt>
+    <dd>{{ item['id'] }}</dd>
+    <dt>Email</dt>
+    <dd>{{ item['email'] }}</dd>
+    <dt>Nombre</dt>
+    <dd>{{ item['name'] }}</dd>
+    <dt>1º apellido</dt>
+    <dd>{{ item['surname_1'] }}</dd>
+    <dt>2º apellido</dt>
+    <dd>{{ item['surname_2'] }}</dd>
+    <dt>Fecha creación</dt>
+    <dd>{{ item['created_at'] | date:'dd/MM/yyyy HH:mm:ss' }}</dd>
+    <dt>Fecha actualización</dt>
+    <dd>{{ item['updated_at'] | date:'dd/MM/yyyy HH:mm:ss' }}</dd>
+    <dt>Activo</dt>
+    <dd>{{ item['active'] ? 'Sí' : 'No' }}</dd>
+</dl>
+</div>
+<div class="box-footer">
+<button type="button" class="btn btn-danger" title="Confirmar borrado" [disabled]="!load" (click)="onDelete()">Confirmar borrado</button>
+</div>

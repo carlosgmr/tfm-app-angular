@@ -11,8 +11,8 @@ import { MessageService } from './message.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AdministratorService {
-  url = environment.api.url + 'administrator';
+export class QuestionaryModelService {
+  url = environment.api.url + 'questionary-model';
   httpOptions: object;
 
   constructor(
