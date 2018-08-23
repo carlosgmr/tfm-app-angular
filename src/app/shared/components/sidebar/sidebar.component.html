@@ -1,33 +1,30 @@
 <aside class="main-sidebar">
-  <!-- sidebar: style can be found in sidebar.less -->
   <section class="sidebar" [ngSwitch]="role">
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'administrator'">
-        <li>
-          <a [routerLink]="['/administrator/administrator']">
-            <i class="fa fa-circle-o"></i> <span>Administradores</span>
-          </a>
-        </li>
-        <li>
-          <a [routerLink]="['/administrator/instructor']">
-            <i class="fa fa-circle-o"></i> <span>Instructores</span>
-          </a>
-        </li>
-        <li>
-          <a [routerLink]="['/administrator/user']">
-            <i class="fa fa-circle-o"></i> <span>Usuarios</span>
-          </a>
-        </li>
-        <li>
-          <a [routerLink]="['/administrator/group']">
-            <i class="fa fa-circle-o"></i> <span>Grupos</span>
-          </a>
-        </li>
-      </ul>
-      <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'instructor'">
-      </ul>
-      <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'user'">
-      </ul>
+    <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'administrator'">
+      <li [ngClass]="{'active': section === 'administrator'}">
+        <a [routerLink]="['/administrator/administrator']">
+          <i class="fa fa-circle-o"></i> <span>Administradores</span>
+        </a>
+      </li>
+      <li [ngClass]="{'active': section === 'instructor'}">
+        <a [routerLink]="['/administrator/instructor']">
+          <i class="fa fa-circle-o"></i> <span>Instructores</span>
+        </a>
+      </li>
+      <li [ngClass]="{'active': section === 'user'}">
+        <a [routerLink]="['/administrator/user']">
+          <i class="fa fa-circle-o"></i> <span>Usuarios</span>
+        </a>
+      </li>
+      <li [ngClass]="{'active': section === 'group'}">
+        <a [routerLink]="['/administrator/group']">
+          <i class="fa fa-circle-o"></i> <span>Grupos</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'instructor'">
+    </ul>
+    <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'user'">
+    </ul>
   </section>
-  <!-- /.sidebar -->
 </aside>

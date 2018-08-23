@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { LayoutService } from '../../../../shared/services/layout.service';
 import { AdministratorService } from '../../../../shared/services/administrator.service';
 import { MessageService } from '../../../../shared/services/message.service';
 
@@ -10,15 +11,20 @@ import { MessageService } from '../../../../shared/services/message.service';
   styles: []
 })
 export class AdmistratorCreateComponent implements OnInit {
+  title: string;
   data: object = {};
 
   constructor(
+    private layoutService: LayoutService,
     private administratorService: AdministratorService,
     private messageService: MessageService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.title = 'Crear administrador';
+    this.layoutService.currentTitle(this.title);
+    this.layoutService.currentSection('administrator');
   }
 
   onSubmit() {

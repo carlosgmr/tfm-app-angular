@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { LayoutService } from '../../../../shared/services/layout.service';
 import { environment } from '../../../../../environments/environment';
 import { LoginRequest } from '../../../../shared/models/login-request';
 import { LoginService } from '../../../../shared/services/login.service';
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   response = null;
 
   constructor(
+    private layoutService: LayoutService,
     private renderer: Renderer2,
     private router: Router,
     private loginService: LoginService,
@@ -28,6 +30,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.layoutService.currentTitle('Log in');
+    this.layoutService.currentSection('');
+
     // quitamos clases por defecto
     this.renderer.removeClass(document.body, 'hold-transition');
     this.renderer.removeClass(document.body, 'skin-blue');

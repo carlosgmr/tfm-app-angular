@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { LayoutService } from '../../../../shared/services/layout.service';
+import { GroupService } from '../../../../shared/services/group.service';
 
 @Component({
   selector: 'app-group-read',
@@ -6,10 +10,47 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class GroupReadComponent implements OnInit {
+  title: string;
+  id: string;
+  item: object;
+  instructors: Array<object>;
+  users: Array<object>;
+  load: boolean;
+  loadInstructors: boolean;
+  loadUsers: boolean;
 
-  constructor() { }
+  constructor(
+    private layoutService: LayoutService,
+    private route: ActivatedRoute,
+    private groupService: GroupService
+  ) { }
 
   ngOnInit() {
-  }
+    this.title = 'Detalle de grupo';
+    this.layoutService.currentTitle(this.title);
+    this.layoutService.currentSection('group');
 
+    this.load = false;
+    this.loadInstructors = false;
+    this.loadUsers = false;
+    this.id = this.route.snapshot.paramMap.get('id');
+
+    this.groupService.read(this.id)
+      .subscribe(response => {
+        this.item = response;
+        this.load = true;
+      });
+
+    this.groupService.listingInstructor(this.id)
+      .subscribe(response => {
+        this.instructors = response;
+        this.loadInstructors = true;
+      });
+
+    this.groupService.listingUser(this.id)
+      .subscribe(response => {
+        this.users = response;
+        this.loadUsers = true;
+      });
+  }
 }

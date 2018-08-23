@@ -1,3 +1,54 @@
-<p>
-  group-listing works!
-</p>
+<div class="box-header with-border">
+  <h1 class="box-title">{{ title }}</h1>
+  <div class="box-tools pull-right">
+    <a class="btn btn-sm btn-primary" title="Crear" [routerLink]="['/administrator/group/create']">
+      <i class="fa fa-plus"></i> Crear
+    </a>
+  </div>
+</div>
+<div class="box-body">
+  <app-messages></app-messages>
+  <div *ngIf="!load">Cargando datos ...</div>
+  <div class="table-responsive" *ngIf="load">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Fecha creación</th>
+          <th>Fecha actualización</th>
+          <th>Activo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="items.length === 0; else elseBlock">
+          <td colspan="7" class="text-center">No existen datos</td>
+        </tr>
+        <ng-template #elseBlock>
+          <tr *ngFor="let item of items">
+            <td>{{ item['id'] }}</td>
+            <td>{{ item['name'] }}</td>
+            <td>{{ item['description'] }}</td>
+            <td>{{ item['created_at'] | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+            <td>{{ item['updated_at'] | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+            <td>{{ item['active'] ? 'Sí' : 'No' }}</td>
+            <td>
+              <a class="btn btn-xs btn-warning" title="Ver detalles" [routerLink]="['/administrator/group', item['id']]">
+                <i class="fa fa-eye"></i>
+              </a>&nbsp;
+              <a class="btn btn-xs btn-success" title="Editar" [routerLink]="['/administrator/group', item['id'], 'update']">
+                <i class="fa fa-pencil"></i>
+              </a>&nbsp;
+              <a class="btn btn-xs btn-danger" title="Eliminar" [routerLink]="['/administrator/group', item['id'], 'delete']">
+                <i class="fa fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="box-footer"></div>

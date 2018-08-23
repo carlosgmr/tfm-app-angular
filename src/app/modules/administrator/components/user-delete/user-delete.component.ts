@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { LayoutService } from '../../../../shared/services/layout.service';
 import { UserService } from '../../../../shared/services/user.service';
 import { MessageService } from '../../../../shared/services/message.service';
 
@@ -10,11 +11,13 @@ import { MessageService } from '../../../../shared/services/message.service';
   styles: []
 })
 export class UserDeleteComponent implements OnInit {
+  title: string;
   id: string;
   item: object;
   load: boolean;
 
   constructor(
+    private layoutService: LayoutService,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
@@ -22,6 +25,10 @@ export class UserDeleteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.title = 'Eliminar usuario';
+    this.layoutService.currentTitle(this.title);
+    this.layoutService.currentSection('user');
+
     this.load = false;
     this.id = this.route.snapshot.paramMap.get('id');
 

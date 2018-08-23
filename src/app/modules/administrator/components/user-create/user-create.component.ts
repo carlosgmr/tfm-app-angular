@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { LayoutService } from '../../../../shared/services/layout.service';
 import { UserService } from '../../../../shared/services/user.service';
 import { MessageService } from '../../../../shared/services/message.service';
 
@@ -10,15 +11,20 @@ import { MessageService } from '../../../../shared/services/message.service';
   styles: []
 })
 export class UserCreateComponent implements OnInit {
+  title: string;
   data: object = {};
 
   constructor(
+    private layoutService: LayoutService,
     private userService: UserService,
     private messageService: MessageService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.title = 'Crear usuario';
+    this.layoutService.currentTitle(this.title);
+    this.layoutService.currentSection('user');
   }
 
   onSubmit() {

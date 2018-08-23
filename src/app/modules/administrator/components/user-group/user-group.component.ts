@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { LayoutService } from '../../../../shared/services/layout.service';
 import { UserService } from '../../../../shared/services/user.service';
 import { GroupService } from '../../../../shared/services/group.service';
 import { MessageService } from '../../../../shared/services/message.service';
@@ -11,6 +12,7 @@ import { MessageService } from '../../../../shared/services/message.service';
   styles: []
 })
 export class UserGroupComponent implements OnInit {
+  title: string;
   id: string;
   data: object = {
     group: []
@@ -21,6 +23,7 @@ export class UserGroupComponent implements OnInit {
   loadCurrentGroups: boolean;
 
   constructor(
+    private layoutService: LayoutService,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
@@ -29,6 +32,10 @@ export class UserGroupComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.title = 'Inscribir en grupos';
+    this.layoutService.currentTitle(this.title);
+    this.layoutService.currentSection('user');
+
     this.loadAllGroups = false;
     this.currentGroups = [];
     this.loadCurrentGroups = true;

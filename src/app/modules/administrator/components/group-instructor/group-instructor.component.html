@@ -1,3 +1,29 @@
-<p>
-  group-instructor works!
-</p>
+<div class="box-header with-border">
+  <h1 class="box-title">{{ title }}</h1>
+  <div class="box-tools pull-right">
+    <a class="btn btn-sm btn-primary" title="Volver al listado" [routerLink]="['/administrator/group']">
+      <i class="fa fa-arrow-left"></i> Volver al listado
+    </a>&nbsp;
+    <a class="btn btn-sm btn-primary" title="Volver a detalles" [routerLink]="['/administrator/group', id]">
+      <i class="fa fa-eye"></i> Volver a detalles
+    </a>
+  </div>
+</div>
+<form (ngSubmit)="onSubmit()" #formInstructor="ngForm">
+  <div class="box-body">
+    <app-messages></app-messages>
+    <div *ngIf="!loadAllInstructors || !loadCurrentInstructors">Cargando datos ...</div>
+    <div *ngIf="loadAllInstructors && loadCurrentInstructors" class="form-group">
+      <label>Instructores</label>
+      <div class="checkbox" *ngFor="let allInstructor of allInstructors">
+        <label>
+          <input type="checkbox" name="instructor[]" value="{{ allInstructor['id'] }}" (change)="onChange($event.target)" [checked]="currentInstructors.indexOf(allInstructor['id']) !== -1">&nbsp;
+          {{ (allInstructor['name']+' '+allInstructor['surname_1']+' '+(allInstructor['surname_2'] !== null ? allInstructor['surname_2'] : '')).trim() }}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="box-footer">
+    <button type="submit" class="btn btn-primary" [disabled]="!loadAllInstructors || !loadCurrentInstructors || !formInstructor.form.valid">Actualizar</button>
+  </div>
+</form>
