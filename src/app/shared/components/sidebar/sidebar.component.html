@@ -23,6 +23,16 @@
       </li>
     </ul>
     <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'instructor'">
+      <li [ngClass]="{'active': section === 'group'}">
+        <a [routerLink]="['/instructor/group']">
+          <i class="fa fa-circle-o"></i> <span>Grupos</span>
+        </a>
+      </li>
+      <li [ngClass]="{'active': section === 'questionary'}">
+        <a [routerLink]="['/instructor/questionary']">
+          <i class="fa fa-circle-o"></i> <span>Exámenes/encuestas</span>
+        </a>
+      </li>
     </ul>
     <ul class="sidebar-menu" data-widget="tree" *ngSwitchCase="'user'">
     </ul>

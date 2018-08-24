@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -28,8 +28,24 @@ export class QuestionaryService {
     };
   }
 
-  listing(): Observable<any> {
-    return this.http.get<any>(this.url, this.httpOptions)
+  listing(params: any): Observable<any> {
+    const options = this.httpOptions;
+
+    if (params !== null) {
+      let queryParameters = new HttpParams();
+
+      for (const index in params) {
+        if (params.hasOwnProperty(index)) {
+          queryParameters = queryParameters.append(index, params[index]);
+        }
+      }
+
+      if (queryParameters.keys().length > 0) {
+        options['params'] = queryParameters;
+      }
+    }
+
+    return this.http.get<any>(this.url, options)
       .pipe(
         catchError(this.handleError())
       );
