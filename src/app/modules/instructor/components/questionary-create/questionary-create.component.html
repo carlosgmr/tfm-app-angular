@@ -1,3 +1,88 @@
-<p>
-  questionary-create works!
-</p>
+<div class="box-header with-border">
+  <h1 class="box-title">{{ pageTitle }}</h1>
+  <div class="box-tools pull-right">
+    <a class="btn btn-sm btn-primary" title="Volver al listado" [routerLink]="['/instructor/questionary']">
+      <i class="fa fa-arrow-left"></i> Volver al listado
+    </a>
+  </div>
+</div>
+<form (ngSubmit)="onSubmit()" #formCreate="ngForm">
+  <div class="box-body">
+    <app-messages></app-messages>
+
+    <div *ngIf="!loadGroups">Cargando datos ...</div>
+    <div *ngIf="loadGroups">
+      <div [ngClass]="{'form-group': true, 'has-error': group?.invalid && (group?.dirty || group?.touched)}">
+        <label for="group">Grupo</label>
+        <select id="group" name="group" class="form-control" [(ngModel)]="data.group" #group="ngModel" required>
+          <option value=""></option>
+          <option *ngFor="let groupItem of groups" value="{{ groupItem['id'] }}">
+            {{ groupItem['name'] }}
+          </option>
+        </select>
+        <div class="help-block" *ngIf="group.invalid && (group.dirty || group.touched)">
+          <div *ngIf="group.errors.required">El campo es requerido</div>
+        </div>
+      </div>
+    </div>
+
+    <div [ngClass]="{'form-group': true, 'has-error': title?.invalid && (title?.dirty || title?.touched)}">
+      <label for="title">Título</label>
+      <input type="text" id="title" name="title" class="form-control" [(ngModel)]="data.title" #title="ngModel" required>
+      <div class="help-block" *ngIf="title.invalid && (title.dirty || title.touched)">
+        <div *ngIf="title.errors.required">El campo es requerido</div>
+      </div>
+    </div>
+
+    <div [ngClass]="{'form-group': true, 'has-error': description?.invalid && (description?.dirty || description?.touched)}">
+      <label for="description">Descripción</label>
+      <textarea id="description" name="description" class="form-control" [(ngModel)]="data.description" #description="ngModel"></textarea>
+      <div class="help-block" *ngIf="description.invalid && (description.dirty || description.touched)"></div>
+    </div>
+
+    <div *ngIf="!loadModels">Cargando datos ...</div>
+    <div *ngIf="loadModels">
+      <div [ngClass]="{'form-group': true, 'has-error': model?.invalid && (model?.dirty || model?.touched)}">
+        <label for="model">Tipo</label>
+        <select id="model" name="model" class="form-control" [(ngModel)]="data.model" #model="ngModel" required>
+          <option value=""></option>
+          <option *ngFor="let modelItem of models" value="{{ modelItem['id'] }}">
+            {{ modelItem['name'] }}
+          </option>
+        </select>
+        <div class="help-block" *ngIf="model.invalid && (model.dirty || model.touched)">
+          <div *ngIf="model.errors.required">El campo es requerido</div>
+        </div>
+      </div>
+    </div>
+
+    <div [ngClass]="{'form-group': true, 'has-error': public?.invalid && (public?.dirty || public?.touched)}">
+      <label>Público</label>
+      <div class="radio">
+        <label><input type="radio" name="public" value="1" [(ngModel)]="data.public" #public="ngModel" required> Sí</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" name="public" value="0" [(ngModel)]="data.public" #active="ngModel" required> No</label>
+      </div>
+      <div class="help-block" *ngIf="public.invalid && (public.dirty || public.touched)">
+        <div *ngIf="public.errors.required">El campo es requerido</div>
+      </div>
+    </div>
+
+    <div [ngClass]="{'form-group': true, 'has-error': active?.invalid && (active?.dirty || active?.touched)}">
+      <label>Activo</label>
+      <div class="radio">
+        <label><input type="radio" name="active" value="1" [(ngModel)]="data.active" #active="ngModel" required> Sí</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" name="active" value="0" [(ngModel)]="data.active" #active="ngModel" required> No</label>
+      </div>
+      <div class="help-block" *ngIf="active.invalid && (active.dirty || active.touched)">
+        <div *ngIf="active.errors.required">El campo es requerido</div>
+      </div>
+    </div>
+  </div>
+  <div class="box-footer">
+    <button type="submit" class="btn btn-primary" [disabled]="!formCreate.form.valid">Crear</button>
+  </div>
+</form>

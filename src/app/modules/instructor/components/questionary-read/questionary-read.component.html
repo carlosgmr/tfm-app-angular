@@ -1,3 +1,88 @@
-<p>
-  questionary-read works!
-</p>
+<div class="box-header with-border">
+  <h1 class="box-title">{{ title }}</h1>
+  <div class="box-tools pull-right">
+    <a class="btn btn-sm btn-primary" title="Volver al listado" [routerLink]="['/instructor/questionary']">
+      <i class="fa fa-arrow-left"></i> Volver al listado
+    </a>
+  </div>
+</div>
+<div class="box-body">
+  <app-messages></app-messages>
+  <div *ngIf="!load">Cargando datos ...</div>
+  <div class="row" *ngIf="load">
+    <div class="col-md-4">
+      <div class="panel box box-primary">
+        <div class="box-header with-border">
+          <h4 class="box-title">Detalles</h4>
+        </div>
+        <div class="box-body">
+          <dl class="dl-horizontal">
+            <dt>ID</dt>
+            <dd>{{ item['id'] }}</dd>
+            <dt>Grupo</dt>
+            <dd>
+              <a [routerLink]="['/instructor/group', item['group']['id']]">{{ item['group']['name'] }}</a>
+            </dd>
+            <dt>Título</dt>
+            <dd>{{ item['title'] }}</dd>
+            <dt>Descripción</dt>
+            <dd>{{ item['description'] }}</dd>
+            <dt>Tipo</dt>
+            <dd>{{ item['model']['name'] }}</dd>
+            <dt>Fecha creación</dt>
+            <dd>{{ item['created_at'] | date:'dd/MM/yyyy HH:mm:ss' }}</dd>
+            <dt>Fecha actualización</dt>
+            <dd>{{ item['updated_at'] | date:'dd/MM/yyyy HH:mm:ss' }}</dd>
+            <dt>Público</dt>
+            <dd>{{ item['public'] ? 'Sí' : 'No' }}</dd>
+            <dt>Activo</dt>
+            <dd>{{ item['active'] ? 'Sí' : 'No' }}</dd>
+          </dl>
+        </div>
+        <div class="box-footer">
+          <a class="btn btn-primary" [routerLink]="['/instructor/questionary', id, 'update']" title="Modificar">Modificar</a>&nbsp;
+          <a class="btn btn-danger" [routerLink]="['/instructor/questionary', id, 'delete']" title="Eliminar">Eliminar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel box box-primary">
+        <div class="box-header with-border">
+          <h4 class="box-title">Preguntas y respuestas</h4>
+        </div>
+        <div class="box-body">
+          <div *ngIf="item['questions'].length === 0">
+            <a class="btn btn-success" [routerLink]="['/instructor/questionary', id, 'update', 'questions']" title="Añadir">Añadir</a>
+          </div>
+          <ol *ngIf="item['questions'].length > 0">
+            <li *ngFor="let question of item['questions']">
+                <b>{{ question['statement'] }}</b>
+                <ol>
+                  <li *ngFor="let answer of question['answers']">
+                    {{ answer['statement'] }}
+                    <span class="label label-success" title="Respuesta correcta" *ngIf="answer['correct']"><i class="fa fa-check"></i></span>
+                  </li>
+                </ol>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel box box-primary">
+        <div class="box-header with-border">
+          <h4 class="box-title">Usuarios que lo han realizado</h4>
+        </div>
+        <div class="box-body">
+          <div *ngFor="let user of item['users']">
+            <a  [routerLink]="['/instructor/user', id, 'questionary', user['id']]">
+              {{ (user['name']+' '+user['surname_1']+' '+(user['surname_2'] !== null ? user['surname_2']: '')).trim() }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
