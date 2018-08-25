@@ -1,3 +1,101 @@
-<p>
-  group-read works!
-</p>
+<div class="box-header with-border">
+  <h1 class="box-title">{{ title }}</h1>
+  <div class="box-tools pull-right">
+    <a class="btn btn-sm btn-primary" title="Volver al listado" [routerLink]="['/user/group']">
+      <i class="fa fa-arrow-left"></i> Volver al listado
+    </a>
+  </div>
+</div>
+<div class="box-body">
+  <app-messages></app-messages>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel box box-primary">
+        <div class="box-header with-border">
+          <h4 class="box-title">Datos</h4>
+        </div>
+        <div class="box-body">
+          <div *ngIf="!load">Cargando datos ...</div>
+          <dl class="dl-horizontal" *ngIf="load">
+            <dt>ID</dt>
+            <dd>{{ item['id'] }}</dd>
+            <dt>Nombre</dt>
+            <dd>{{ item['name'] }}</dd>
+            <dt>Descripción</dt>
+            <dd>{{ item['description'] }}</dd>
+            <dt>Fecha creación</dt>
+            <dd>{{ item['created_at'] | date:'dd/MM/yyyy HH:mm:ss' }}</dd>
+            <dt>Fecha actualización</dt>
+            <dd>{{ item['updated_at'] | date:'dd/MM/yyyy HH:mm:ss' }}</dd>
+            <dt>Activo</dt>
+            <dd>{{ item['active'] ? 'Sí' : 'No' }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel box box-primary">
+        <div class="box-header with-border">
+          <h4 class="box-title">Instructores inscritos</h4>
+        </div>
+        <div class="box-body">
+          <div *ngIf="!loadInstructors">Cargando datos ...</div>
+          <div *ngIf="loadInstructors">
+            <div *ngIf="instructors.length === 0">No existen datos</div>
+            <div *ngFor="let instructor of instructors">
+              <a [routerLink]="['/user/instructor', instructor['id']]">{{ (instructor['name']+' '+instructor['surname_1']+' '+(instructor['surname_2'] !== null ? instructor['surname_2'] : '')).trim() }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel box box-primary">
+        <div class="box-header with-border">
+          <h4 class="box-title">Usuarios inscritos</h4>
+        </div>
+        <div class="box-body">
+          <div *ngIf="!loadUsers">Cargando datos ...</div>
+          <div *ngIf="loadUsers">
+            <div *ngIf="users.length === 0">No existen datos</div>
+            <div *ngFor="let user of users">
+              <a [routerLink]="['/user/user', user['id']]">{{ (user['name']+' '+user['surname_1']+' '+(user['surname_2'] !== null ? user['surname_2'] : '')).trim() }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel box box-primary">
+        <div class="box-header with-border">
+          <h4 class="box-title">Exámenes/encuestas pendientes</h4>
+        </div>
+        <div class="box-body">
+          <div *ngIf="!loadQuestionarys">Cargando datos ...</div>
+          <div *ngIf="loadQuestionarys">
+            <div class="alert alert-warning" *ngIf="questionarys['not_done'].length === 0">No existen datos</div>
+            <div *ngFor="let questionary of questionarys['not_done']">
+              <a [routerLink]="['/user/questionary', questionary['id'], 'do-attempt']">{{ questionary['title'] }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel box box-primary">
+        <div class="box-header with-border">
+          <h4 class="box-title">Exámenes/encuestas realizados</h4>
+        </div>
+        <div class="box-body">
+          <div *ngIf="!loadQuestionarys">Cargando datos ...</div>
+          <div *ngIf="loadQuestionarys">
+            <div class="alert alert-warning" *ngIf="questionarys['done'].length === 0">No existen datos</div>
+            <div *ngFor="let questionary of questionarys['done']">
+              <a [routerLink]="['/user/user/questionary', questionary['id']]">{{ questionary['title'] }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="box-footer"></div>

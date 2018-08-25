@@ -13,23 +13,15 @@ import { MessageService } from './message.service';
 })
 export class QuestionaryService {
   url = environment.api.url + 'questionary';
-  httpOptions: object;
 
   constructor(
     private http: HttpClient,
     private storageService: StorageService,
     private messageService: MessageService
-  ) {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': this.storageService.getToken()
-      }),
-    };
-  }
+  ) { }
 
   listing(params: any): Observable<any> {
-    const options = this.httpOptions;
+    const options = this.getHttpOptions();
 
     if (params !== null) {
       let queryParameters = new HttpParams();
@@ -52,52 +44,61 @@ export class QuestionaryService {
   }
 
   read(id: any): Observable<any> {
-    return this.http.get<any>(this.url + '/' + id, this.httpOptions)
+    return this.http.get<any>(this.url + '/' + id, this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   create(data: any): Observable<any> {
-    return this.http.post<any>(this.url, data, this.httpOptions)
+    return this.http.post<any>(this.url, data, this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   update(id: any, data: any): Observable<any> {
-    return this.http.patch<any>(this.url + '/' + id, data, this.httpOptions)
+    return this.http.patch<any>(this.url + '/' + id, data, this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   delete(id: any): Observable<any> {
-    return this.http.delete<any>(this.url + '/' + id, this.httpOptions)
+    return this.http.delete<any>(this.url + '/' + id, this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   readComplete(id: any): Observable<any> {
-    return this.http.get<any>(this.url + '/' + id + '/complete', this.httpOptions)
+    return this.http.get<any>(this.url + '/' + id + '/complete', this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   readBasic(id: any): Observable<any> {
-    return this.http.get<any>(this.url + '/' + id + '/basic', this.httpOptions)
+    return this.http.get<any>(this.url + '/' + id + '/basic', this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   addQuestions(id: any, data: any): Observable<any> {
-    return this.http.post<any>(this.url + '/' + id + '/add-questions', data, this.httpOptions)
+    return this.http.post<any>(this.url + '/' + id + '/add-questions', data, this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
+  }
+
+  private getHttpOptions(): object {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.storageService.getToken()
+      }),
+    };
   }
 
   private handleError() {

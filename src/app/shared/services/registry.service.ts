@@ -13,26 +13,27 @@ import { MessageService } from './message.service';
 })
 export class RegistryService {
   url = environment.api.url + 'registry';
-  httpOptions: object;
 
   constructor(
     private http: HttpClient,
     private storageService: StorageService,
     private messageService: MessageService
-  ) {
-    this.httpOptions = {
+  ) { }
+
+  saveAttempt(idUser: any, idQuestionary: any, data: any): Observable<any> {
+    return this.http.post<any>(this.url + '/user/' + idUser + '/questionary/' + idQuestionary, data, this.getHttpOptions())
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
+  private getHttpOptions(): object {
+    return {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': this.storageService.getToken()
       }),
     };
-  }
-
-  saveAttempt(idUser: any, idQuestionary: any, data: any): Observable<any> {
-    return this.http.post<any>(this.url + '/user/' + idUser + '/questionary/' + idQuestionary, data, this.httpOptions)
-      .pipe(
-        catchError(this.handleError())
-      );
   }
 
   private handleError() {

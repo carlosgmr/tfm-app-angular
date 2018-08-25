@@ -13,75 +13,76 @@ import { MessageService } from './message.service';
 })
 export class InstructorService {
   url = environment.api.url + 'instructor';
-  httpOptions: object;
 
   constructor(
     private http: HttpClient,
     private storageService: StorageService,
     private messageService: MessageService
-  ) {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': this.storageService.getToken()
-      }),
-    };
-  }
+  ) { }
 
   listing(): Observable<any> {
-    return this.http.get<any>(this.url, this.httpOptions)
+    return this.http.get<any>(this.url, this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   read(id: any): Observable<any> {
-    return this.http.get<any>(this.url + '/' + id, this.httpOptions)
+    return this.http.get<any>(this.url + '/' + id, this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   create(data: any): Observable<any> {
-    return this.http.post<any>(this.url, data, this.httpOptions)
+    return this.http.post<any>(this.url, data, this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   update(id: any, data: any): Observable<any> {
-    return this.http.patch<any>(this.url + '/' + id, data, this.httpOptions)
+    return this.http.patch<any>(this.url + '/' + id, data, this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   delete(id: any): Observable<any> {
-    return this.http.delete<any>(this.url + '/' + id, this.httpOptions)
+    return this.http.delete<any>(this.url + '/' + id, this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   listingGroup(id: any): Observable<any> {
-    return this.http.get<any>(this.url + '/' + id + '/group', this.httpOptions)
+    return this.http.get<any>(this.url + '/' + id + '/group', this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   currentGroup(id: any, data: any): Observable<any> {
-    return this.http.post<any>(this.url + '/' + id + '/group', data, this.httpOptions)
+    return this.http.post<any>(this.url + '/' + id + '/group', data, this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
   }
 
   listingQuestionary(id: any): Observable<any> {
-    return this.http.get<any>(this.url + '/' + id + '/questionary', this.httpOptions)
+    return this.http.get<any>(this.url + '/' + id + '/questionary', this.getHttpOptions())
       .pipe(
         catchError(this.handleError())
       );
+  }
+
+  private getHttpOptions(): object {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.storageService.getToken()
+      }),
+    };
   }
 
   private handleError() {
