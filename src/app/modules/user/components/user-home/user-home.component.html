@@ -1,11 +1,12 @@
 <div class="box-header with-border">
-    <h1 class="box-title">Panel de usuario</h1>
-    <div class="box-tools pull-right"></div>
+  <h1 class="box-title">{{ title }}</h1>
+  <div class="box-tools pull-right"></div>
 </div>
 <div class="box-body">
-    <p>Bienvenido al panel de usuario. Selecciona una opción:</p>
-    <p>
-        <!--<a href="" class="btn btn-default btn-block" style="text-align:left"></a>-->
-    </p>
+  <p>Bienvenido al panel de usuario. Selecciona una opción:</p>
+  <p>
+    <a [routerLink]="['/user/group']" class="btn btn-default btn-block" style="text-align:left">Grupos</a>
+    <a [routerLink]="['/user/questionary']" class="btn btn-default btn-block" style="text-align:left">Exámenes/encuestas</a>
+  </p>
 </div>
 <div class="box-footer"></div>

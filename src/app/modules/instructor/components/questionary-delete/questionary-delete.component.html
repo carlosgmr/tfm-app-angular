@@ -1,3 +1,40 @@
-<p>
-  questionary-delete works!
-</p>
+<div class="box-header with-border">
+  <h1 class="box-title">{{ title }}</h1>
+  <div class="box-tools pull-right">
+    <a class="btn btn-sm btn-primary" title="Volver al listado" [routerLink]="['/instructor/questionary']">
+      <i class="fa fa-arrow-left"></i> Volver al listado
+    </a>&nbsp;
+    <a class="btn btn-sm btn-primary" title="Volver a detalles" [routerLink]="['/instructor/questionary', id]">
+      <i class="fa fa-eye"></i> Volver a detalles
+    </a>
+  </div>
+</div>
+<div class="box-body">
+  <app-messages></app-messages>
+  <div *ngIf="!load">Cargando datos ...</div>
+  <dl class="dl-horizontal" *ngIf="load">
+    <dt>ID</dt>
+    <dd>{{ item['id'] }}</dd>
+    <dt>Grupo</dt>
+    <dd *ngIf="loadGroup">
+      <a [routerLink]="['/instructor/group', group['id']]">{{ group['name'] }}</a>
+    </dd>
+    <dt>Título</dt>
+    <dd>{{ item['title'] }}</dd>
+    <dt>Descripción</dt>
+    <dd style="white-space: pre-line">{{ item['description'] }}</dd>
+    <dt>Tipo</dt>
+    <dd *ngIf="loadModel">{{ model['name'] }}</dd>
+    <dt>Fecha creación</dt>
+    <dd>{{ item['created_at'] | date:'dd/MM/yyyy HH:mm:ss' }}</dd>
+    <dt>Fecha actualización</dt>
+    <dd>{{ item['updated_at'] | date:'dd/MM/yyyy HH:mm:ss' }}</dd>
+    <dt>Público</dt>
+    <dd>{{ item['public'] ? 'Sí' : 'No' }}</dd>
+    <dt>Activo</dt>
+    <dd>{{ item['active'] ? 'Sí' : 'No' }}</dd>
+  </dl>
+</div>
+<div class="box-footer">
+  <button type="button" class="btn btn-danger" title="Confirmar borrado" [disabled]="!load" (click)="onDelete()">Confirmar borrado</button>
+</div>

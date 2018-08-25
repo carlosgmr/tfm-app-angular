@@ -49,7 +49,7 @@
             <dt>Título</dt>
             <dd>{{ item['questionary']['title'] }}</dd>
             <dt>Descripción</dt>
-            <dd>{{ item['questionary']['description'] }}</dd>
+            <dd style="white-space: pre-line">{{ item['questionary']['description'] }}</dd>
             <dt>Tipo</dt>
             <dd>{{ item['questionary']['model']['name'] }}</dd>
           </dl>
@@ -67,10 +67,10 @@
           <div *ngIf="item['last_date']">
             <ol>
               <li *ngFor="let question of item['questions']">
-                <b>{{ question['statement'] }}</b>
+                <b style="white-space: pre-line">{{ question['statement'] }}</b>
                 <ol>
                   <li *ngFor="let answer of question['answers']">
-                    {{ answer['statement'] }}
+                    <span style="white-space: pre-line">{{ answer['statement'] }}</span>&nbsp;
                     <span *ngIf="question['registry']['answer'] === answer['id']">
                       <span class="label label-success" title="Respuesta correcta" *ngIf="answer['correct']"><i class="fa fa-check"></i></span>
                       <span class="label label-danger" title="Respuesta incorrecta" *ngIf="!answer['correct']"><i class="fa fa-remove"></i></span>

@@ -26,7 +26,7 @@
             <dt>Título</dt>
             <dd>{{ item['title'] }}</dd>
             <dt>Descripción</dt>
-            <dd>{{ item['description'] }}</dd>
+            <dd style="white-space: pre-line">{{ item['description'] }}</dd>
             <dt>Tipo</dt>
             <dd>{{ item['model']['name'] }}</dd>
             <dt>Fecha creación</dt>
@@ -57,10 +57,10 @@
           </div>
           <ol *ngIf="item['questions'].length > 0">
             <li *ngFor="let question of item['questions']">
-                <b>{{ question['statement'] }}</b>
+                <b style="white-space: pre-line">{{ question['statement'] }}</b>
                 <ol>
                   <li *ngFor="let answer of question['answers']">
-                    {{ answer['statement'] }}
+                    <span style="white-space: pre-line">{{ answer['statement'] }}</span>&nbsp;
                     <span class="label label-success" title="Respuesta correcta" *ngIf="answer['correct']"><i class="fa fa-check"></i></span>
                   </li>
                 </ol>
@@ -76,6 +76,7 @@
           <h4 class="box-title">Usuarios que lo han realizado</h4>
         </div>
         <div class="box-body">
+          <div *ngIf="item['users'].length === 0">No existen datos</div>
           <div *ngFor="let user of item['users']">
             <a  [routerLink]="['/instructor/user', id, 'questionary', user['id']]">
               {{ (user['name']+' '+user['surname_1']+' '+(user['surname_2'] !== null ? user['surname_2']: '')).trim() }}

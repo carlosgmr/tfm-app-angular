@@ -1,3 +1,61 @@
-<p>
-  questionary-update works!
-</p>
+<div class="box-header with-border">
+  <h1 class="box-title">{{ title }}</h1>
+  <div class="box-tools pull-right">
+    <a class="btn btn-sm btn-primary" title="Volver al listado" [routerLink]="['/instructor/questionary']">
+      <i class="fa fa-arrow-left"></i> Volver al listado
+    </a>&nbsp;
+    <a class="btn btn-sm btn-primary" title="Volver a detalles" [routerLink]="['/instructor/questionary', id]">
+      <i class="fa fa-eye"></i> Volver a detalles
+    </a>
+  </div>
+</div>
+<form (ngSubmit)="onSubmit()" #formUpdate="ngForm">
+  <div class="box-body">
+    <app-messages></app-messages>
+    <div *ngIf="!load">Cargando datos ...</div>
+    <div *ngIf="load">
+      <div [ngClass]="{'form-group': true, 'has-error': title?.invalid && (title?.dirty || title?.touched)}">
+        <label for="title">Título</label>
+        <input type="text" id="title" name="title" class="form-control" [(ngModel)]="data.title" #title="ngModel" required>
+        <div class="help-block" *ngIf="title.invalid && (title.dirty || title.touched)">
+          <div *ngIf="title.errors.required">El campo es requerido</div>
+        </div>
+      </div>
+
+      <div [ngClass]="{'form-group': true, 'has-error': description?.invalid && (description?.dirty || description?.touched)}">
+        <label for="description">Descripción</label>
+        <textarea id="description" name="description" class="form-control" [(ngModel)]="data.description" #description="ngModel"></textarea>
+        <div class="help-block" *ngIf="description.invalid && (description.dirty || description.touched)"></div>
+      </div>
+
+      <div [ngClass]="{'form-group': true, 'has-error': public?.invalid && (public?.dirty || public?.touched)}">
+        <label>Público</label>
+        <div class="radio">
+          <label><input type="radio" name="public" value="1" [(ngModel)]="data.public" #public="ngModel" required> Sí</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="public" value="0" [(ngModel)]="data.public" #public="ngModel" required> No</label>
+        </div>
+        <div class="help-block" *ngIf="public.invalid && (public.dirty || public.touched)">
+          <div *ngIf="public.errors.required">El campo es requerido</div>
+        </div>
+      </div>
+
+      <div [ngClass]="{'form-group': true, 'has-error': active?.invalid && (active?.dirty || active?.touched)}">
+        <label>Activo</label>
+        <div class="radio">
+          <label><input type="radio" name="active" value="1" [(ngModel)]="data.active" #active="ngModel" required> Sí</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="active" value="0" [(ngModel)]="data.active" #active="ngModel" required> No</label>
+        </div>
+        <div class="help-block" *ngIf="active.invalid && (active.dirty || active.touched)">
+          <div *ngIf="active.errors.required">El campo es requerido</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box-footer">
+    <button type="submit" class="btn btn-primary" [disabled]="!load || !formUpdate.form.valid">Modificar</button>
+  </div>
+</form>

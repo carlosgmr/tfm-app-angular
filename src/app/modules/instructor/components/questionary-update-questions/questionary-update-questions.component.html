@@ -1,3 +1,111 @@
-<p>
-  questionary-update-questions works!
-</p>
+<div class="box-header with-border">
+  <h1 class="box-title">{{ title }}</h1>
+  <div class="box-tools pull-right">
+    <a class="btn btn-sm btn-primary" title="Volver al listado" [routerLink]="['/instructor/questionary']">
+      <i class="fa fa-arrow-left"></i> Volver al listado
+    </a>&nbsp;
+    <a class="btn btn-sm btn-primary" title="Volver a detalles" [routerLink]="['/instructor/questionary', id]">
+      <i class="fa fa-eye"></i> Volver a detalles
+    </a>
+  </div>
+</div>
+<form (ngSubmit)="saveQuestions()" #formSave="ngForm">
+  <div class="box-body">
+    <app-messages></app-messages>
+    <div *ngIf="loadModels">
+      <div class="panel box box-default box-question" *ngFor="let question of questions; let i = index">
+        <div class="box-header with-border">
+          <h3 class="box-title">Pregunta #{{ i+1 }}</h3>
+          <div class="pull-right box-tools">
+            <button type="button" class="btn btn-default btn-sm" title="Minimizar pregunta" (click)="minimizeQuestion(i)">
+              <i class="fa fa-minus"></i>
+            </button>&nbsp;
+            <button type="button" class="btn btn-default btn-sm" title="Eliminar pregunta" (click)="deleteQuestion(i)">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="box-body" [ngStyle]="{'display': (question.minimized ? 'none' : 'block')}">
+          <div class="row">
+            <div class="col-md-6">
+              <div [ngClass]="{'form-group': true, 'has-error': questionStatement?.invalid && (questionStatement?.dirty || questionStatement?.touched)}">
+                <label>Enunciado</label>
+                <textarea class="form-control" name="{{ 'questionStatement' + i }}" [(ngModel)]="question.statement" #questionStatement="ngModel" required></textarea>
+                <div class="help-block" *ngIf="questionStatement.invalid && (questionStatement.dirty || questionStatement.touched)">
+                  <div *ngIf="questionStatement.errors.required">El campo es requerido</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div [ngClass]="{'form-group': true, 'has-error': questionModel?.invalid && (questionModel?.dirty || questionModel?.touched)}">
+                <label>Tipo</label>
+                <select class="form-control" name="{{ 'questionModel' + i }}" [(ngModel)]="question.model" #questionModel="ngModel" (change)="processQuestionModel(i, $event.target.value)" required>
+                  <option value=""></option>
+                  <option *ngFor="let modelItem of models" value="{{ modelItem['id'] }}">
+                    {{ modelItem['name'] }}
+                  </option>
+                </select>
+                <div class="help-block" *ngIf="questionModel.invalid && (questionModel.dirty || questionModel.touched)">
+                  <div *ngIf="questionModel.errors.required">El campo es requerido</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive" *ngIf="question.answers.length > 0">
+            <p><b>Respuestas</b></p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="col-md-1">#</th>
+                  <th class="col-md-8">Texto</th>
+                  <th class="col-md-2">¿Es correcta?</th>
+                  <th class="col-md-1"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let answer of question.answers; let j = index">
+                  <td>{{ j+1 }}</td>
+                  <td>
+                    <div [ngClass]="{'form-group': true, 'has-error': answerStatement?.invalid && (answerStatement?.dirty || answerStatement?.touched)}">
+                      <textarea class="form-control" name="{{ 'answerStatement' + i + '' + j }}" [(ngModel)]="answer.statement" #answerStatement="ngModel" [readonly]="answer['statementReadOnly']" required></textarea>
+                      <div class="help-block" *ngIf="answerStatement.invalid && (answerStatement.dirty || answerStatement.touched)">
+                        <div *ngIf="answerStatement.errors.required">El campo es requerido</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div [ngClass]="{'form-group': true, 'has-error': questionCorrect?.invalid && (questionCorrect?.dirty || questionCorrect?.touched)}">
+                      <input type="radio" value="{{ j }}" name="{{ 'questionCorrect' + i + '' + j }}" [(ngModel)]="question['correct']" #questionCorrect="ngModel" required>
+                      <div class="help-block" *ngIf="questionCorrect.invalid && (questionCorrect.dirty || questionCorrect.touched)">
+                        <div *ngIf="questionCorrect.errors.required">Debes indicar la respuesta correcta</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-default btn-sm" title="Eliminar respuesta" [disabled]="question['model'] === '1'" (click)="removeAnswer(i, j)">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <hr>
+            <div class="text-right">
+              <button type="button" class="btn btn-default btn-sm btn-add-answer" title="Añadir respuesta" [disabled]="question['model'] === '1'" (click)="addAnswer(i)">
+                Añadir respuesta
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box-footer">
+    <button type="button" id="btnAddQuestion" class="btn btn-success" title="Añadir pregunta" (click)="addQuestion()" [disabled]="!loadModels">
+      Añadir pregunta
+    </button>&nbsp;
+    <button type="submit" id="btnSaveQuestions" class="btn btn-primary" title="Guardar" [disabled]="!loadModels || !formSave.form.valid">
+      Guardar
+    </button>
+  </div>
+</form>

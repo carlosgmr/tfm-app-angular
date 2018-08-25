@@ -62,7 +62,7 @@
         <label><input type="radio" name="public" value="1" [(ngModel)]="data.public" #public="ngModel" required> Sí</label>
       </div>
       <div class="radio">
-        <label><input type="radio" name="public" value="0" [(ngModel)]="data.public" #active="ngModel" required> No</label>
+        <label><input type="radio" name="public" value="0" [(ngModel)]="data.public" #public="ngModel" required> No</label>
       </div>
       <div class="help-block" *ngIf="public.invalid && (public.dirty || public.touched)">
         <div *ngIf="public.errors.required">El campo es requerido</div>
