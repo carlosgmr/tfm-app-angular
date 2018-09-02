@@ -12,7 +12,7 @@ import { MessageService } from '../../../../shared/services/message.service';
 })
 export class UserCreateComponent implements OnInit {
   title: string;
-  data: object = {};
+  data: any = {};
 
   constructor(
     private layoutService: LayoutService,

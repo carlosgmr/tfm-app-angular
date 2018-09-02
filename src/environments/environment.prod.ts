@@ -9,6 +9,6 @@ export const environment = {
     copyrightUrl: 'https://github.com/carlosgmr'
   },
   api: {
-    url: 'http://192.168.1.61:8957/'
+    url: 'http://192.168.1.61:8971/'
   }
 };

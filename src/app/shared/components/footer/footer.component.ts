@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
+import { FooterInfo } from '../../models/footer-info';
 
 @Component({
   selector: 'app-footer',
@@ -8,16 +9,16 @@ import { environment } from '../../../../environments/environment';
 })
 export class FooterComponent implements OnInit {
   private appInfo = environment.app;
-  public data: object = null;
+  public data: FooterInfo;
 
   constructor() { }
 
   ngOnInit() {
-    this.data = {
-      appVersion: this.appInfo.version,
-      appCopyright: this.appInfo.copyright,
-      appCopyrightUrl: this.appInfo.copyrightUrl,
-      now: new Date()
-    };
+    this.data = new FooterInfo(
+      this.appInfo.version,
+      this.appInfo.copyright,
+      this.appInfo.copyrightUrl,
+      new Date()
+    );
   }
 }

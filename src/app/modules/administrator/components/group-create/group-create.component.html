@@ -18,7 +18,7 @@
     </div>
     <div [ngClass]="{'form-group': true, 'has-error': description?.invalid && (description?.dirty || description?.touched)}">
       <label for="description">Descripción</label>
-      <input type="text" id="description" name="description" class="form-control" [(ngModel)]="data.description" #surname_2="ngModel">
+      <input type="text" id="description" name="description" class="form-control" [(ngModel)]="data.description" #description="ngModel">
     </div>
     <div [ngClass]="{'form-group': true, 'has-error': active?.invalid && (active?.dirty || active?.touched)}">
       <label>Activo</label>

@@ -19,7 +19,7 @@ export class QuestionaryCreateComponent implements OnInit {
   loadGroups: boolean;
   models: Array<object>;
   loadModels: boolean;
-  data: object = {};
+  data: any = {};
 
   constructor(
     private layoutService: LayoutService,

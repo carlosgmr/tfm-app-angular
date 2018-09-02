@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { StorageService } from '../../services/storage.service';
+import { HeaderInfo } from '../../models/header-info';
 
 @Component({
   selector: 'app-header',
@@ -9,20 +10,20 @@ import { StorageService } from '../../services/storage.service';
 })
 export class HeaderComponent implements OnInit {
   private appInfo = environment.app;
-  public data: object = null;
+  public data: HeaderInfo;
 
   constructor(
     private storageService: StorageService
   ) {}
 
   ngOnInit() {
-    this.data = {
-      appName1: this.appInfo.name1,
-      appName2: this.appInfo.name2,
-      urlHome: this.storageService.getAppUser().role,
-      fullname: this.storageService.getAppUser().fullname,
-      createdAt: this.storageService.getAppUser().created_at
-    };
+    this.data = new HeaderInfo(
+      this.appInfo.name1,
+      this.appInfo.name2,
+      this.storageService.getAppUser().role,
+      this.storageService.getAppUser().fullname,
+      this.storageService.getAppUser().created_at
+    );
   }
 
   logout(): void {
